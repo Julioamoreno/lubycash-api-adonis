@@ -4,12 +4,35 @@ services:
   adonis-api:
     build: .
     container_name: docker-adonis-api
-
     volumes:
       - "./api:/usr/src/api"
-      - "./api/node_modules"
     ports:
       - "3333:3333"
 
     environment:
       - CHOKIDAR_USEPOLLING=1
+    env_file: 
+      - ./api/.env
+    networks:
+      - app-network
+    depends_on:
+      - mysql-adonis
+
+  mysql-adonis:
+    container_name: 'mysql-adonis'
+    image: mysql:5.7.35
+    command: --innodb_use_native_aio=0 --socket=/tmp/mysql.sock --bind_address=0.0.0.0
+    restart: always
+    env_file: 
+      - ./api/.env
+    ports: 
+      - "3308:3306"
+    expose:
+      - "3308"
+    environment: 
+      DB_CONNECTION: mysql
+      MYSQL_ROOT_PASSWORD: password
+
+networks:
+  app-network:
+    driver: bridge
