@@ -1,0 +1,15 @@
+version: "3.2"
+
+services:
+  adonis-api:
+    build: .
+    container_name: docker-adonis-api
+
+    volumes:
+      - "./api:/usr/src/api"
+      - "./api/node_modules"
+    ports:
+      - "3333:3333"
+
+    environment:
+      - CHOKIDAR_USEPOLLING=1
