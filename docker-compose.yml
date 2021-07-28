@@ -1,4 +1,4 @@
-version: "3.2"
+version: "3.9"
 
 services:
   adonis-api:
@@ -26,6 +26,8 @@ services:
       - ./data:/var/lib/mysql/
       - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
+    networks:
+      - app-network
     ports: 
       - "3307:3306"
     expose: 
@@ -40,3 +42,7 @@ services:
 networks:
   app-network:
     driver: bridge
+    ipam: 
+      driver: default
+      config: 
+        - subnet: 172.23.0.0/16
