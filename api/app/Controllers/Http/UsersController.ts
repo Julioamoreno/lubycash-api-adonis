@@ -29,6 +29,7 @@ export default class UsersController {
     const data = request.only(['client_id', 'email', 'password', 'is_admin'])
     const user = await User.findOrFail(id)
     user.merge(data)
+    await user.save()
     return response.json(user)
   }
 
