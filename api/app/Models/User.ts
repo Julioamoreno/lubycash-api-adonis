@@ -15,8 +15,11 @@ export default class User extends BaseModel {
   @column({ serializeAs: null })
   public password: string
 
-  @column()
-  public password_token: string
+  @column({ serializeAs: null })
+  public password_token: string | null
+
+  @column.dateTime({ serializeAs: null })
+  public password_token_expiration: DateTime | null
 
   @column()
   public is_admin: boolean
