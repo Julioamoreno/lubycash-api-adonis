@@ -4,7 +4,9 @@ Route.post('login', 'AuthenticationController.store')
 Route.post('logout', 'AuthenticationController.destroy')
 Route.resource('password', 'ForgotPasswordsController').only(['store', 'update'])
 
-Route.resource('user', 'UsersController').apiOnly()
-Route.resource('typetransaction', 'TypeTransactionsController').apiOnly()
 Route.resource('transaction', 'TransactionsController').apiOnly()
-Route.resource('client/logs', 'ClientLogsController').apiOnly()
+Route.group(() => {
+  Route.resource('user', 'UsersController').apiOnly()
+  Route.resource('typetransaction', 'TypeTransactionsController').apiOnly()
+  Route.resource('client/logs', 'ClientLogsController').apiOnly()
+}).middleware(['auth','admin']);

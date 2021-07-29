@@ -1,4 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import * as Mail from '@ioc:Adonis/Addons/Mail'
 import crypto from 'crypto'
 import { DateTime } from 'luxon'
 import User from 'App/Models/User'
@@ -14,6 +15,13 @@ export default class ForgetPasswordController {
     user.password_token_expiration = DateTime.now().plus({ days: 2 })
     await user.save()
     response.send({ message: 'Uma mensagem foi enviada para o email cadastrado' })
+    await Mail.send((message) => {
+      message
+        .from('admin@lubycash.com')
+        .to(user.email)
+        .subject('Recuperação de Senha')
+        .htmlView('emails/forgot_password', { email: user.email, token: user.token, link })
+    })
   }
 
   public async update({ request, response }: HttpContextContract) {
