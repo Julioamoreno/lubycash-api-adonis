@@ -10,7 +10,6 @@ export default class UsersController {
   public async store({ request }: HttpContextContract) {
     try {
       const data = request.only(['client_id', 'email', 'password', 'is_admin'])
-      console.log(data)
       const user = await User.create(data)
       return user
     } catch (error) {

@@ -11,6 +11,6 @@
 import KafkaService from "App/Services/Kafka";
 
 (async () => {
-  const kafka = new KafkaService({ groupId: 'client' })
+  const kafka = new KafkaService({ groupId: 'newuser' })
   await kafka.consumeApproved()
 })()

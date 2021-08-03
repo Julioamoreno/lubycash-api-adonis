@@ -1,4 +1,6 @@
-import { Kafka, Consumer, Producer, Message } from 'kafkajs';
+import User from '../Controllers/local/UserController';
+import { Kafka, Consumer, Producer, Admin, Message } from 'kafkajs';
+import Admin from 'App/Middleware/Admin';
 
 interface Topic {
   topic: string | RegExp;
@@ -21,6 +23,7 @@ interface CheckClientAvailableType {
 export default class KafkaService {
   public consumer: Consumer;
   public producer: Producer;
+  public admin: Admin;
 
   constructor({ groupId }: ConsumerConfig) {
     const kafka = new Kafka({
@@ -28,6 +31,7 @@ export default class KafkaService {
     });
     this.producer = kafka.producer()
     this.consumer = kafka.consumer({ groupId })
+    this.admin = kafka.admin()
   }
 
   async consumeApproved() {
@@ -37,14 +41,14 @@ export default class KafkaService {
     await this.consumer.run({
         eachMessage: async ({ message }) => {
           const messageJson = JSON.parse(message.value!.toString());
-          await console.log(messageJson);
+          await User(messageJson);
         }
     })
   }
 
   async consume({ topic }: Topic) {
     await this.consumer.connect();
-    await this.consumer.subscribe({ topic, fromBeginning: false });
+    await this.consumer.subscribe({ topic, fromBeginning: true });
 
     await this.consumer.run({
         eachMessage: async ({ message }) => {

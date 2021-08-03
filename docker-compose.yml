@@ -6,7 +6,6 @@ services:
     container_name: docker-adonis-api
     volumes:
       - "./api:/usr/src/api"
-      - "./api/node_modules"
     ports:
       - "3333:3333"
 
@@ -35,7 +34,6 @@ services:
       - "3307"
     environment: 
       MYSQL_DATABASE: lubycash
-      MYSQL_HOST: localhost
       MYSQL_USER: armando
       MYSQL_PASSWORD: 12341234
       MYSQL_ROOT_PASSWORD: 12341234

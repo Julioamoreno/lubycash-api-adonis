@@ -13,7 +13,7 @@ export default class ClientController {
       await this.kafka.send({ topic: 'newclient', value: JSON.stringify(data) })
       return response.json({ messagem: 'Requisição enviada com sucesso, aguarde a resposta.' })
     } catch (err) {
-      return response.status(500).send(err);
+      return response.status(500).send(err.stack)
     }
   }
 }
