@@ -16,7 +16,15 @@
   },
   "preloads": [
     "./start/routes",
-    "./start/kernel"
+    "./start/kernel",
+    {
+      "file": "./start/kafkaSubscribe",
+      "optional": true,
+      "environment": [
+        "web",
+        "console"
+      ]
+    }
   ],
   "providers": [
     "./providers/AppProvider",
