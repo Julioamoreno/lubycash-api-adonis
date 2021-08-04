@@ -1,6 +1,6 @@
-import User from '../Controllers/local/UserController';
+import CreateUser from '../Controllers/local/UserController';
 import { Kafka, Consumer, Producer, Admin, Message } from 'kafkajs';
-import Admin from 'App/Middleware/Admin';
+import Event from '@ioc:Adonis/Core/Event'
 
 interface Topic {
   topic: string | RegExp;
@@ -41,7 +41,7 @@ export default class KafkaService {
     await this.consumer.run({
         eachMessage: async ({ message }) => {
           const messageJson = JSON.parse(message.value!.toString());
-          await User(messageJson);
+          Event.emit('new:user', messageJson)
         }
     })
   }

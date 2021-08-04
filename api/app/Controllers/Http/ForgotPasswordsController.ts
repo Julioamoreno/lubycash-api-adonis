@@ -1,5 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import * as Mail from '@ioc:Adonis/Addons/Mail'
+import Mail from '@ioc:Adonis/Addons/Mail'
 import crypto from 'crypto'
 import { DateTime } from 'luxon'
 import User from 'App/Models/User'

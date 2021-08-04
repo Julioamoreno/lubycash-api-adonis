@@ -24,6 +24,12 @@
         "web",
         "console"
       ]
+    },
+    {
+      "file": "./start/events",
+      "environment": [
+        "web"
+      ]
     }
   ],
   "providers": [

@@ -1,0 +1,20 @@
+@layout('layouts/main')
+@set('title', 'Bem vindo')
+@section('body')
+
+<h1> Bem vindo, {{ email }} </h1>
+
+  <section>
+    <strong>Sua conta foi criada com sucesso</strong>
+
+    <p>Para acessar sua conta utilize o e-mail {{ email }}.
+    E foi criada uma senha automática, utilize a senha para seu primeiro acesso.
+    </p>
+
+    <h2>Credenciais</h2>
+    <p> Email: <strong>{{ email }}</strong></p>
+    <p> Senha: <strong>{{ password }}</strong></p>
+
+    <p>Você podera alterar a senha após o primeiro acesso.</p>
+  </section>
+@end
